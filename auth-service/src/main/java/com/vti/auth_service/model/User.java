@@ -1,4 +1,5 @@
 package com.vti.auth_service.model;
+import com.vti.auth_service.oauth2.entity.AuthProvider;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+
 @Entity
 @Table(name = "users")
 @Data
@@ -43,6 +45,14 @@ public class User implements UserDetails {
 
     @Column(name = "refresh_token", length = 150, nullable = true)
     private String refreshToken;
+
+    @Column(name = "provider", columnDefinition = "ENUM('local', 'facebook', 'google', 'github') DEFAULT 'local'")
+    @Enumerated(EnumType.STRING)
+    private AuthProvider provider;
+    @Column(name = "provider_id", length = 100, nullable = true)
+    private String providerId;
+    @Column(name = "image_url", length = 200, nullable = true)
+    private String imageUrl;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

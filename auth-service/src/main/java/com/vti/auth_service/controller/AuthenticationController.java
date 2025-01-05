@@ -26,6 +26,7 @@ import java.io.IOException;
 public class AuthenticationController {
     public final AuthenticationService authenticationService;
 
+
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody @Valid RegisterRequestDTO registerRequestDTO) throws Exception {
         RegisterResponseDTO registerResponseDTO = authenticationService.register(registerRequestDTO);
